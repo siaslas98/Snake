@@ -5,7 +5,7 @@ from constants import *
 from snake import *
 
 # TODO: Clean up code / Optimize
-
+# TODO: Create You Win Screen
 pg.init()
 
 # Game Setup
@@ -17,13 +17,8 @@ WINDOW = pg.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pg.display.set_caption("Snake")
 
 def get_food_pos(snake):
-    while True:
-        x_pos = random.randrange(40)
-        y_pos = random.randrange(30)
-        food_pos = (x_pos, y_pos)
-
-        if food_pos not in snake.occupied_positions:
-            return food_pos
+    available_positions = ALL_POSITIONS - snake.occupied_positions
+    return random.choice(list(available_positions))
 
 def draw_food(screen, food_pos):
     pg.draw.rect(
