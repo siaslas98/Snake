@@ -28,21 +28,17 @@ def draw_food(screen, food_pos):
     )
 
 def load_game_over(screen, snake):
-    screen.fill(BACKGROUND)
-    game_over_surf = text_font.render('Game Over', True, (255, 255, 255))
-    game_over_rect = game_over_surf.get_rect(center=(800 / 2, 600 / 3))
+    messages = [
+        ("Game Over", text_font, 600 / 3), # message, font, position along the vertical axis
+        (f"Score: {len(snake.body)}", text_font2, 600 / 2),
+        ("---Press Space to Play Again---", text_font2, 600 / 2 + 100)
+    ]
 
-    score_surf = text_font2.render(f'Score: {len(snake.body)}', True, (255, 255, 255))
-    score_rect = score_surf.get_rect(center=(800 / 2, 600 / 2))
+    rendered_texts= [
+        (font.render(text, True, (255, 255, 255)), (800 / 2, y)) # surf, (x, y) position
+        for text, font, y in messages
+    ]
 
-    message_surf = text_font2.render('---Press Space to Play Again---', True, (255, 255, 255))
-    message_rect = message_surf.get_rect(center=(800 / 2, 600 / 2 + 100))
-    
-    
-    screen.blit(game_over_surf, game_over_rect)
-    screen.blit(score_surf, score_rect)
-    screen.blit(message_surf, message_rect)
-    pg.display.flip()
     running = True
     while running:
         for event in pg.event.get():
@@ -52,7 +48,14 @@ def load_game_over(screen, snake):
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     running = False
-                    return 1
+                    return 1 
+                
+        screen.fill(BACKGROUND)
+        for surf, pos in rendered_texts:
+            rect = surf.get_rect(center=pos)
+            screen.blit(surf, rect)
+
+        pg.display.update()
         fps_clock.tick(FPS)
 
 def main():
