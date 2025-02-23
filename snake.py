@@ -11,7 +11,7 @@ class Direction(Enum):
 
 class Snake:
     def __init__(self):
-        self.body = [HEAD_POS, (HEAD_POS[0] + 1, HEAD_POS[1])]
+        self.body = [HEAD_POS]
         self.occupied_positions = {HEAD_POS}
         self.direction = Direction.NO_MOVEMENT
         self.color = (0, 255, 0) # Green Snake
