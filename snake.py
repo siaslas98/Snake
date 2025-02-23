@@ -11,10 +11,9 @@ class Direction(Enum):
 
 class Snake:
     def __init__(self):
-        self.body = [HEAD_POS]
+        self.body = [HEAD_POS, (HEAD_POS[0] + 1, HEAD_POS[1])]
         self.occupied_positions = {HEAD_POS}
         self.direction = Direction.NO_MOVEMENT
-        self.paused = False
         self.color = (0, 255, 0) # Green Snake
 
     def is_valid_direction_change(self, new_direction):
@@ -75,6 +74,7 @@ class Snake:
                 self.color,
                 (x * 20, y * 20, 20, 20) # Convert grid position to pixel coordinates
             )
+
             pg.draw.rect(
                 screen,
                 (0, 0, 0),

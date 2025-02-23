@@ -4,9 +4,6 @@ from pygame.locals import *
 from constants import *
 from snake import *
 
-# TODO: Clean up code / Optimize in snake.py
-# TODO: Create You Win Screen
-# TODO: Create Pause Game State Mechanism
 pg.init()
 
 # Game Setup
@@ -127,7 +124,8 @@ def main():
 
         # Render elements of the game
         WINDOW.fill(BACKGROUND)
-        snake.update_position()
+        if snake.direction != Direction.NO_MOVEMENT:
+            snake.update_position()
         draw_food(WINDOW, food_pos)
         snake.draw(WINDOW)
         pg.display.update()
